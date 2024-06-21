@@ -7,5 +7,23 @@
   "devDependencies": {
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.4"
-  }
+  },
+  "name": "theodinproject-membersonly",
+  "description": "An ExpressJS project to demonstrate Authentication skill and CURD using MongoDB",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "devstart": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sum4n/TheOdinProject-MembersOnly.git"
+  },
+  "keywords": [],
+  "author": "Suman Das",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sum4n/TheOdinProject-MembersOnly/issues"
+  },
+  "homepage": "https://github.com/sum4n/TheOdinProject-MembersOnly#readme"
 }
