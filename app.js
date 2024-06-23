@@ -1,6 +1,9 @@
 const express = require("express");
 const path = require("path");
 
+// Import routes
+const router = require("./routes/routes");
+
 require("dotenv").config();
 // console.log(process.env.MONGODB);
 
@@ -19,5 +22,7 @@ async function main() {
 app.get("/", (req, res) => {
   res.send("<h1>Hello World!<h1>");
 });
+
+app.use("/", router);
 
 app.listen(3000, () => console.log("app listening on port 3000!"));
