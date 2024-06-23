@@ -8,6 +8,8 @@ require("dotenv").config();
 // console.log(process.env.MONGODB);
 
 const app = express();
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
