@@ -11,6 +11,10 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// Required to populate req.body with form fields.
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
