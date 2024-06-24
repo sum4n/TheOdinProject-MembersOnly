@@ -39,7 +39,7 @@ exports.user_create_post = [
     .custom((value, { req }) => {
       return value === req.body.password;
     })
-    .withMessage("Passwords do not match"),
+    .withMessage("The passwords you provided did not match."),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
@@ -60,6 +60,7 @@ exports.user_create_post = [
       res.render("signUp_form", {
         title: "Sign Up",
         user: user,
+        confirm_password: req.body.confirm_password,
         errors: errors.array(),
       });
       return;

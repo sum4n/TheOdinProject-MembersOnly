@@ -9,20 +9,25 @@
     <h1>Sign Up</h1>
     <form method="POST">
       <label for="first_name">First name: </label>
-      <input name="first_name" placeholder="firstname" type="text" required />
+      <input name="first_name" placeholder="firstname" type="text" required
+      value=<%= typeof user === 'undefined' ? '' : user.first_name %> >
       <label for="last_name">Last name: </label>
-      <input type="text" name="last_name" placeholder="lastname" required />
+      <input type="text" name="last_name" placeholder="lastname" required
+      value=<%= typeof user === 'undefined' ? '' : user.last_name %> >
       <label for="email">Email: </label>
-      <input type="email" name="email" placeholder="email@email.com" required />
+      <input type="email" name="email" placeholder="email@email.com" required
+      value=<%= typeof user === 'undefined' ? '' : user.email %> >
       <label for="password">Password: </label>
-      <input type="password" name="password" required />
+      <input type="password" name="password" required value=<%= typeof user ===
+      'undefined' ? '' : user.password %> >
       <label for="confirm_password">Confirm password: </label>
-      <input type="password" name="confirm_password" required />
+      <input type="password" name="confirm_password" required value=<%= typeof
+      confirm_password === 'undefined' ? '' : confirm_password %> >
       <button type="submit">Sign Up</button>
     </form>
 
     <!--  Display validation errors. -->
-    <% if (errors) { %>
+    <% if (typeof errors !== 'undefined') { %>
     <ul>
       <% errors.forEach(function(error) { %>
       <li><%= error.msg %></li>
