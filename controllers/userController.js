@@ -35,6 +35,11 @@ exports.user_create_post = [
     .withMessage("Password must be specified.")
     .isLength({ min: 6 })
     .withMessage("Password must have 6 characters or more"),
+  body("confirm_password")
+    .custom((value, { req }) => {
+      return value === req.body.password;
+    })
+    .withMessage("Passwords do not match"),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
@@ -50,6 +55,7 @@ exports.user_create_post = [
     });
 
     if (!errors.isEmpty()) {
+      console.log(errors.array());
       // There are errors. Render the form again with sanitized values/errors messages.
       res.render("signUp_form", {
         title: "Sign Up",

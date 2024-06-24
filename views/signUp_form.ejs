@@ -8,15 +8,26 @@
   <body>
     <h1>Sign Up</h1>
     <form method="POST">
-      <label for="first_name">First name</label>
+      <label for="first_name">First name: </label>
       <input name="first_name" placeholder="firstname" type="text" required />
-      <label for="last_name">Last name</label>
+      <label for="last_name">Last name: </label>
       <input type="text" name="last_name" placeholder="lastname" required />
-      <label for="email">Email</label>
+      <label for="email">Email: </label>
       <input type="email" name="email" placeholder="email@email.com" required />
-      <label for="password">Password</label>
+      <label for="password">Password: </label>
       <input type="password" name="password" required />
+      <label for="confirm_password">Confirm password: </label>
+      <input type="password" name="confirm_password" required />
       <button type="submit">Sign Up</button>
     </form>
+
+    <!--  Display validation errors. -->
+    <% if (errors) { %>
+    <ul>
+      <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
   </body>
 </html>
