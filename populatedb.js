@@ -7,6 +7,8 @@ console.log(
 // Get arguments passed on command line.
 const userArgs = process.argv.slice(2);
 
+const bcrypt = require("bcryptjs");
+
 const User = require("./models/user");
 const Message = require("./models/message");
 
@@ -27,7 +29,8 @@ async function main() {
   await createUsers();
   await createMessages();
   console.log("Debug: Closing mongoose");
-  mongoose.connection.close();
+  // I can not figure out yet how to save users before closing the connection after using bcrypt.
+  // mongoose.connection.close();
 }
 
 async function userCreate(index, first_name, last_name, email, password) {
@@ -35,12 +38,20 @@ async function userCreate(index, first_name, last_name, email, password) {
     first_name: first_name,
     last_name: last_name,
     email: email,
-    password: password,
   });
 
-  await user.save();
+  bcrypt.hash(password, 10, async (err, hashedPassword) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    user.password = hashedPassword;
+    await user.save();
+    console.log(`Added user: ${first_name} ${last_name}`);
+  });
+
   users[index] = user;
-  console.log(`Added user: ${first_name} ${last_name}`);
 }
 
 async function messageCreate(index, title, text, author) {
