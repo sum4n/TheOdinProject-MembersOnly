@@ -1,7 +1,8 @@
 const User = require("../models/user");
-const asyncHandler = require("express-async-handler");
 
+const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
 
 // Display User create form on GET
 exports.user_create_get = (req, res, next) => {
@@ -67,11 +68,25 @@ exports.user_create_post = [
     } else {
       // Data from form is valid.
 
-      // Save user.
-      await user.save();
+      // Convert password into hash and save user with hashed password.
+      try {
+        bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+          if (err) {
+            return next(error);
+          }
+          user.password = hashedPassword;
 
-      // TODO: Redirect to login page.
-      res.send(`<h1>User: ${req.body.first_name} ${req.body.last_name} saved.`);
+          // Save user.
+          await user.save();
+
+          // TODO: Redirect to login page.
+          res.send(
+            `<h1>User: ${req.body.first_name} ${req.body.last_name} saved.`
+          );
+        });
+      } catch (err) {
+        return next(err);
+      }
     }
   }),
 ];
