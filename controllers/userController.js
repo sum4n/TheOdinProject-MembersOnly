@@ -90,3 +90,47 @@ exports.user_create_post = [
     }
   }),
 ];
+
+// Display membership status and form on GET
+exports.user_membership_get = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id).exec();
+  res.render("membership_form", {
+    title: "Membership Status",
+    user: user,
+  });
+});
+
+// Handle membership form POST
+exports.user_membership_post = [
+  // Validate input.
+  body("membership_code")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Membership code must be specified")
+    .custom((value, { req }) => {
+      return value === "Membership";
+    })
+    .withMessage("Wrong code. Try again."),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract validation errors from a request.
+    const errors = validationResult(req);
+
+    // Get the user.
+    const user = await User.findById(req.params.id);
+
+    if (!errors.isEmpty()) {
+      res.render("membership_form", {
+        title: "Membership Status",
+        user: user,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await User.findByIdAndUpdate(req.params.id, { membership_status: true });
+      res.redirect(`/user/${user.id}/membership`);
+    }
+  }),
+];
