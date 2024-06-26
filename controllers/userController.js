@@ -94,7 +94,7 @@ exports.user_create_post = [
 // Display membership status and form on GET
 exports.user_membership_get = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id).exec();
-  res.render("membership_form", {
+  res.render("membershipStatus_form", {
     title: "Membership Status",
     user: user,
   });
@@ -122,7 +122,7 @@ exports.user_membership_post = [
     const user = await User.findById(req.params.id);
 
     if (!errors.isEmpty()) {
-      res.render("membership_form", {
+      res.render("membershipStatus_form", {
         title: "Membership Status",
         user: user,
         errors: errors.array(),
