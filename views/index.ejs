@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <% if (user) {%>
+    <h1>Welcome back <%= user.name %></h1>
+    <small><a href="/user/log-out">Log out</a></small>
+    <% } else { %>
+    <h1>Welcome visitor</h1>
+    <h2>Please log in</h2>
+    <form action="/user/log-in" method="POST">
+      <label for="email">Email </label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Please type in your registered email to log in!"
+        required
+      />
+      <label for="password">Password </label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Type in your password"
+        required
+      />
+      <button type="submit">Log In</button>
+    </form>
+    <p>
+      <small>New user: <a href="/user/sign-up">Sign up</a></small>
+    </p>
+    <% } %>
+  </body>
+</html>
