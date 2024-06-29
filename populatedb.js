@@ -33,11 +33,11 @@ async function main() {
   // mongoose.connection.close();
 }
 
-async function userCreate(index, first_name, last_name, email, password) {
+async function userCreate(index, first_name, last_name, username, password) {
   const user = new User({
     first_name: first_name,
     last_name: last_name,
-    email: email,
+    username: username,
   });
 
   bcrypt.hash(password, 10, async (err, hashedPassword) => {
@@ -69,11 +69,11 @@ async function messageCreate(index, title, text, author) {
 async function createUsers() {
   console.log("Adding users");
   await Promise.all([
-    userCreate(0, "Erbar", "MerryBang", "email1@email.com", "abc1"),
-    userCreate(1, "Groodley", "Altertail", "email2@email.com", "abc2"),
-    userCreate(2, "Axle", "Goldpinch", "email3@email.com", "abc3"),
-    userCreate(3, "Kizz", "Sharpwheedle", "email4@email.com", "abc4"),
-    userCreate(4, "Golganar", "Firehammer", "email5@email.com", "abc5"),
+    userCreate(0, "Erbar", "MerryBang", "erbar", "abc123"),
+    userCreate(1, "Groodley", "Altertail", "groodley", "abc123"),
+    userCreate(2, "Axle", "Goldpinch", "axle", "abc123"),
+    userCreate(3, "Kizz", "Sharpwheedle", "kizz", "abc123"),
+    userCreate(4, "Golganar", "Firehammer", "golganar", "abc123"),
   ]);
 }
 
