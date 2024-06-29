@@ -22,13 +22,11 @@ exports.user_create_post = [
     .isLength({ min: 1 })
     .escape()
     .withMessage("Last name must be specified."),
-  body("email")
+  body("username")
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("Email must be specified.")
-    .isEmail()
-    .withMessage("Email must be of correct format e.g. example@email.com"),
+    .withMessage("username must be specified."),
   body("password")
     .trim()
     .isLength({ min: 1 })
@@ -51,7 +49,7 @@ exports.user_create_post = [
     const user = new User({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      email: req.body.email,
+      username: req.body.username,
       password: req.body.password,
     });
 
