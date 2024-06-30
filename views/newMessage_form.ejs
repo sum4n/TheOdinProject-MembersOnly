@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>Create a new message</h1>
+    <form action="" method="post">
+      <p><label for="title">Title: </label></p>
+      <input type="text" name="title" id="title" required value=<%= typeof
+      message === 'undefined' ? '' : message.title %> >
+      <p><label for="message">Message: </label></p>
+      <textarea name="message" id="message" rows="4" cols="50" required>
+<%= typeof message === 'undefined' ? '' : message.text %></textarea
+      >
+      <br />
+      <button type="submit">Post message</button>
+    </form>
+
+    <!--  Display validation errors. -->
+    <% if (typeof errors !== 'undefined') { %>
+    <ul>
+      <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </body>
+</html>
