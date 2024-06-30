@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const user_controller = require("../controllers/userController");
+const message_controller = require("../controllers/messageController");
 
 // User routes
 
@@ -18,6 +19,17 @@ router.get("/user/:id/membership-status", user_controller.user_membership_get);
 router.post(
   "/user/:id/membership-status",
   user_controller.user_membership_post
+);
+
+// Get request for creating a new message.
+router.get(
+  "/message/:id/create-new-message",
+  message_controller.message_create_get
+);
+
+router.post(
+  "/message/:id/create-new-message",
+  message_controller.message_create_post
 );
 
 module.exports = router;
