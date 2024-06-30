@@ -46,6 +46,12 @@
           <%= message.title %>
         </p>
         <p style="font-size: 1rem"><%= message.text %></p>
+        <% if (user?.membership_status) { %>
+        <p>
+          <small style="font-weight: bold"><%= message.author.name %> - </small>
+          <small>(<%= message.timestamp %>)</small>
+        </p>
+        <% } %>
         <hr />
       </li>
       <% }) %>
