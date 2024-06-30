@@ -68,12 +68,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// Home page route
-app.get("/", (req, res) => {
-  res.render("index", { user: req.user });
-});
-
-// Other routes
+// Imported routes
 app.use("/", router);
 
 // Login, logout routes

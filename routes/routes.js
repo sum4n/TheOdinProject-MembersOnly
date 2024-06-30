@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
+const home_page_controller = require("../controllers/homePageController");
 const user_controller = require("../controllers/userController");
 const message_controller = require("../controllers/messageController");
 
-// User routes
+// Home page routes
+router.get("/", home_page_controller.home_page_get);
 
+// User routes
 // Get request for creating a user.
 router.get("/user/sign-up", user_controller.user_create_get);
 
@@ -21,6 +24,7 @@ router.post(
   user_controller.user_membership_post
 );
 
+// Message routes
 // Get request for creating a new message.
 router.get(
   "/message/:id/create-new-message",
