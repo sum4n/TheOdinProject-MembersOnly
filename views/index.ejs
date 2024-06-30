@@ -8,6 +8,13 @@
   <body>
     <% if (user) {%>
     <h1>Welcome back <%= user.username %></h1>
+    <% if (!user.membership_status) { %>
+    <p>
+      You are not a member.
+      <a href="/user/<%= user.id %>/membership-status">Become a member</a>
+    </p>
+    <% } %>
+
     <p>
       <a href="/message/<%= user.id %>/create-new-message"
         >Create a new message</a

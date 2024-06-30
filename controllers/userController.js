@@ -128,7 +128,7 @@ exports.user_membership_post = [
       return;
     } else {
       await User.findByIdAndUpdate(req.params.id, { membership_status: true });
-      res.redirect(`/user/${user.id}/membership`);
+      res.redirect("/");
     }
   }),
 ];
