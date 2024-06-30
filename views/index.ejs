@@ -14,6 +14,7 @@
       >
     </p>
     <small><a href="/user/log-out">Log out</a></small>
+
     <% } else { %>
     <h1>Welcome visitor</h1>
     <h2>Please log in</h2>
@@ -32,6 +33,23 @@
     <p>
       <small>New user: <a href="/user/sign-up">Sign up</a></small>
     </p>
+    <% } %>
+
+    <!--  Display messages. -->
+    <h2>Messages:</h2>
+    <% if (typeof message_list !== 'undefined') { %>
+    <ul style="list-style-type: none; padding: 0; margin: 0">
+      <hr />
+      <% message_list.forEach(function(message) { %>
+      <li>
+        <p style="font-size: 1.5rem; text-decoration: underline">
+          <%= message.title %>
+        </p>
+        <p style="font-size: 1rem"><%= message.text %></p>
+        <hr />
+      </li>
+      <% }) %>
+    </ul>
     <% } %>
   </body>
 </html>
