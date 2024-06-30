@@ -24,19 +24,7 @@
 
     <% } else { %>
     <h1>Welcome visitor</h1>
-    <h2>Please log in</h2>
-    <form action="/user/log-in" method="POST">
-      <label for="username">Username: </label>
-      <input type="username" name="username" placeholder="username" required />
-      <label for="password">Password: </label>
-      <input
-        type="password"
-        name="password"
-        placeholder="Type in your password"
-        required
-      />
-      <button type="submit">Log In</button>
-    </form>
+    <p>Already a member? <a href="/user/log-in">Log In</a></p>
     <p>
       <small>New user: <a href="/user/sign-up">Sign up</a></small>
     </p>

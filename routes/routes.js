@@ -15,6 +15,12 @@ router.get("/user/sign-up", user_controller.user_create_get);
 // Post request for creating a user.
 router.post("/user/sign-up", user_controller.user_create_post);
 
+// GET request for log in
+router.get("/user/log-in", user_controller.user_login_get);
+
+// POST request for log in
+// handled at app.js
+
 // Get request for membership
 router.get("/user/:id/membership-status", user_controller.user_membership_get);
 

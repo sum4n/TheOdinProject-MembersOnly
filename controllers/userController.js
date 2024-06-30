@@ -89,6 +89,14 @@ exports.user_create_post = [
   }),
 ];
 
+// Display login form on GET
+exports.user_login_get = (req, res, next) => {
+  res.render("logIn_form", { title: "Log In" });
+};
+
+// Handle login on POST
+// handled at app.js
+
 // Display membership status and form on GET
 exports.user_membership_get = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id).exec();
