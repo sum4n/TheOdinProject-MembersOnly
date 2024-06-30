@@ -54,7 +54,7 @@ exports.user_create_post = [
     });
 
     if (!errors.isEmpty()) {
-      console.log(errors.array());
+      // console.log(errors.array());
       // There are errors. Render the form again with sanitized values/errors messages.
       res.render("signUp_form", {
         title: "Sign Up",
