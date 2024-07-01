@@ -117,7 +117,7 @@ exports.user_membership_post = [
     .custom((value, { req }) => {
       return value === "Membership";
     })
-    .withMessage("Wrong code. Try again."),
+    .withMessage("Correct code is - 'Membership'"),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
@@ -125,7 +125,7 @@ exports.user_membership_post = [
     const errors = validationResult(req);
 
     // Get the user.
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).exec();
 
     if (!errors.isEmpty()) {
       res.render("membershipStatus_form", {
@@ -136,6 +136,48 @@ exports.user_membership_post = [
       return;
     } else {
       await User.findByIdAndUpdate(req.params.id, { membership_status: true });
+      res.redirect("/");
+    }
+  }),
+];
+
+// Display admin status form on GET
+exports.user_admin_get = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id).exec();
+  res.render("adminStatus_form", { title: "Become an Admin", user: user });
+});
+
+// Handle admin status form on POST
+exports.user_admin_post = [
+  // Validate input.
+  body("admin_code")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Admin code must be specified!")
+    .custom((value) => {
+      return value === "I am admin";
+    })
+    .withMessage("Correct code is - 'I am admin'"),
+
+  // Process request after validation and sanitization
+  asyncHandler(async (req, res, next) => {
+    // Extract validation errors from a request.
+    const errors = validationResult(req);
+
+    // Get the user.
+    const user = await User.findById(req.params.id).exec();
+
+    if (!errors.isEmpty()) {
+      // There are errors, rerender the form with errors.
+      res.render("adminStatus_form", {
+        title: "Become an Admin",
+        user: user,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await User.findByIdAndUpdate(req.params.id, { is_admin: true });
       res.redirect("/");
     }
   }),
