@@ -13,6 +13,10 @@
       You are not a member.
       <a href="/user/<%= user.id %>/membership-status">Become a member</a>
     </p>
+    <% } %> <% if (!user.is_admin) { %>
+    <p>
+      <a href="/user/<%= user.id %>/admin-status">Become an Admin</a>
+    </p>
     <% } %>
 
     <p>
