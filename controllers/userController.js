@@ -79,7 +79,8 @@ exports.user_create_post = [
 
           // TODO: Redirect to login page.
           res.send(
-            `<h1>User: ${req.body.first_name} ${req.body.last_name} saved.`
+            `<h1>User: ${req.body.first_name} ${req.body.last_name} saved.</h1>
+            <a href="/user/log-in">Log In</a>`
           );
         });
       } catch (err) {
