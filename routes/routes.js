@@ -30,6 +30,11 @@ router.post(
   user_controller.user_membership_post
 );
 
+// GET request for admin
+router.get("/user/:id/admin-status", user_controller.user_admin_get);
+// POST request for admin
+router.get("/user/:id/admin-status", user_controller.user_admin_post);
+
 // Message routes
 // Get request for creating a new message.
 router.get(
