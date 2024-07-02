@@ -8,16 +8,18 @@
   <body>
     <% if (user) {%>
     <h1>Welcome back <%= user.username %></h1>
-    <% if (!user.membership_status) { %>
     <p>
-      You are not a member.
-      <a href="/user/<%= user.id %>/membership-status">Become a member</a>
+      Membership:
+      <a href="/user/<%= user.id %>/membership-status"
+        ><%= user.membership_status ? "Member" : "Not a member" %></a
+      >
     </p>
-    <% } %> <% if (!user.is_admin) { %>
     <p>
-      <a href="/user/<%= user.id %>/admin-status">Become an Admin</a>
+      Admin:
+      <a href="/user/<%= user.id %>/admin-status"
+        ><%= user.is_admin ? "Admin" : "Not an Admin" %></a
+      >
     </p>
-    <% } %>
 
     <p>
       <a href="/message/<%= user.id %>/create-new-message"
@@ -45,7 +47,7 @@
           <%= message.title %>
         </p>
         <p style="font-size: 1rem"><%= message.text %></p>
-        <% if (user?.membership_status) { %>
+        <% if (user?.membership_status || user?.is_admin) { %>
         <p>
           <small style="font-weight: bold"><%= message.author.name %> - </small>
           <small>(<%= message.timestamp_formatted %>)</small>
