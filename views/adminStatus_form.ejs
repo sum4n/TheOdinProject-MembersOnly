@@ -26,5 +26,57 @@
       <% }) %>
     </ul>
     <% } %>
+    <!-- If admin display info -->
+    <% if (user.is_admin) { %>
+    <div style="display: flex; justify-content: space-between">
+      <!-- If user is admin display users list and messages -->
+      <div>
+        <!-- List all users -->
+        <h2>Users:</h2>
+        <% if (typeof user_list !== "undefined") { %>
+        <ul>
+          <hr />
+          <% user_list.forEach(function(user) { %>
+          <li>
+            <p>First Name: <%= user.first_name %></p>
+            <p>Last Name: <%= user.last_name %></p>
+            <p>Full Name: <%= user.name %></p>
+            <p>Username: <%= user.username %></p>
+            <p>Membership Status: <%= user.membership_status %></p>
+            <p>Admin Status: <%= user.is_admin %></p>
+            <hr />
+          </li>
+          <% }) %>
+        </ul>
+        <% } %>
+      </div>
+      <div>
+        <!--  Display messages. -->
+        <h2>Messages:</h2>
+        <% if (typeof message_list !== 'undefined') { %>
+        <ul style="list-style-type: none; padding: 0; margin: 0">
+          <hr />
+          <% message_list.forEach(function(message) { %>
+          <li>
+            <p style="font-size: 1.5rem; text-decoration: underline">
+              <%= message.title %>
+            </p>
+            <p style="font-size: 1rem"><%= message.text %></p>
+
+            <p>
+              <small style="font-weight: bold"
+                ><%= message.author.name %> -
+              </small>
+              <small>(<%= message.timestamp_formatted %>)</small>
+            </p>
+
+            <hr />
+          </li>
+          <% }) %>
+        </ul>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
   </body>
 </html>

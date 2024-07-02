@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Message = require("../models/message");
 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
@@ -145,7 +146,24 @@ exports.user_membership_post = [
 // Display admin status form on GET
 exports.user_admin_get = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id).exec();
-  res.render("adminStatus_form", { title: "Become an Admin", user: user });
+
+  if (user.is_admin) {
+    const allMessages = await Message.find()
+      .sort({ timestamp: -1 })
+      .populate("author")
+      .exec();
+
+    const allUsers = await User.find().sort({ username: 1 }).exec();
+
+    res.render("adminStatus_form", {
+      title: "Admin Page",
+      user: user,
+      message_list: allMessages,
+      user_list: allUsers,
+    });
+  } else {
+    res.render("adminStatus_form", { title: "Become an Admin", user: user });
+  }
 });
 
 // Handle admin status form on POST
@@ -179,7 +197,7 @@ exports.user_admin_post = [
       return;
     } else {
       await User.findByIdAndUpdate(req.params.id, { is_admin: true });
-      res.redirect("/");
+      res.redirect(`/user/${user.id}/admin-status`);
     }
   }),
 ];
