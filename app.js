@@ -11,6 +11,8 @@ const User = require("./models/user");
 // Import routes
 const router = require("./routes/routes");
 
+const compression = require("compression");
+
 require("dotenv").config();
 // console.log(process.env.MONGODB);
 
@@ -67,6 +69,8 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
+app.use(compression()); // Compress all routes
 
 // Imported routes
 app.use("/", router);
