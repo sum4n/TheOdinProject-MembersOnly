@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>Delete Message?</h1>
+    <hr />
+    <p><%= message.title %></p>
+    <p><%= message.text %></p>
+    <p>
+      <small style="font-weight: bold"><%= message.author.name %> - </small>
+      <small>(<%= message.timestamp_formatted %>)</small>
+    </p>
+    <hr />
+    <p style="margin-top: 20px">
+      <strong>Do you really want to delete this message?</strong>
+    </p>
+    <form method="post">
+      <input type="hidden" name="messageId" value="<%= message._id %>" />
+      <button type="submit">Delete</button>
+    </form>
+  </body>
+</html>
