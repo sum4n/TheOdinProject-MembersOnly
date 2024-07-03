@@ -61,3 +61,23 @@ exports.message_create_post = [
     }
   }),
 ];
+
+// Display message delete on GET
+exports.message_delete_get = asyncHandler(async (req, res, next) => {
+  // Get details of the message.
+  const message = await Message.findById(req.params.id)
+    .populate("author")
+    .exec();
+
+  res.render("message_delete", {
+    title: "Delete Message",
+    message: message,
+  });
+});
+
+// Handle message delete on POST
+exports.message_delete_post = asyncHandler(async (req, res, next) => {
+  await Message.findByIdAndDelete(req.body.messageId);
+
+  res.redirect("/");
+});
