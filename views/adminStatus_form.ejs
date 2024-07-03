@@ -69,7 +69,9 @@
               </small>
               <small>(<%= message.timestamp_formatted %>)</small>
             </p>
-
+            <p>
+              <a href="/message/<%= message.id %>/delete">Delete Message</a>
+            </p>
             <hr />
           </li>
           <% }) %>

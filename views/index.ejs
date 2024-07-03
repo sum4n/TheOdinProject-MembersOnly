@@ -53,6 +53,10 @@
           <small>(<%= message.timestamp_formatted %>)</small>
         </p>
         <% } %>
+        <!-- Show delete message link if user is Admin -->
+        <% if (user?.is_admin) { %>
+        <p><a href="/message/<%= message.id %>/delete">Delete Message</a></p>
+        <% } %>
         <hr />
       </li>
       <% }) %>
