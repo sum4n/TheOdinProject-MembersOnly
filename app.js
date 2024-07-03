@@ -12,11 +12,16 @@ const User = require("./models/user");
 const router = require("./routes/routes");
 
 const compression = require("compression");
+const helmet = require("helmet");
 
 require("dotenv").config();
 // console.log(process.env.MONGODB);
 
 const app = express();
+
+// Add helmet to the middleware chain.
+app.use(helmet());
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
