@@ -13,11 +13,20 @@ const router = require("./routes/routes");
 
 const compression = require("compression");
 const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
 
 require("dotenv").config();
 // console.log(process.env.MONGODB);
 
 const app = express();
+
+// Set up rate limiter, maximum 40 requests per minute.
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 40,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
 
 // Add helmet to the middleware chain.
 app.use(helmet());
