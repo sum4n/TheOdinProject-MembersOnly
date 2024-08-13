@@ -1,0 +1,19 @@
+{
+  "name": "theodinproject-membersonly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sum4n/TheOdinProject-MembersOnly.git"
+  },
+  "author": "Suman Das",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sum4n/TheOdinProject-MembersOnly/issues"
+  },
+  "homepage": "https://github.com/sum4n/TheOdinProject-MembersOnly#readme"
+}
