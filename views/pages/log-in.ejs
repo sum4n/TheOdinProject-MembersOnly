@@ -1,0 +1,20 @@
+<%- include("../partials/head") %>
+
+<div>
+  <h1>Log in:</h1>
+  <form method="POST">
+    <label for="username">Username:</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      placeholder="username"
+      required
+    />
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" />
+  </form>
+</div>
+<div>
+  <p><a href="/users/register">New User? Register</a></p>
+</div>
