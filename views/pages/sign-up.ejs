@@ -4,22 +4,53 @@
   <h1>Sign up:</h1>
   <form method="POST">
     <label for="first_name">First Name:</label>
-    <input type="text" name="first_name" id="first_name" required />
+    <input
+      type="text"
+      name="first_name"
+      id="first_name"
+      required
+      value="<%= locals.data ? data.first_name : '' %>"
+    />
     <label for="last_name">Last Name:</label>
-    <input type="text" name="last_name" id="first_name" required />
+    <input
+      type="text"
+      name="last_name"
+      id="last_name"
+      required
+      value="<%= locals.data ? data.last_name : '' %>"
+    />
     <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required />
+    <input
+      type="text"
+      name="username"
+      id="username"
+      required
+      value="<%= locals.data ? data.username : '' %>"
+    />
     <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required />
-    <label for="confirm-password">Confirm Password:</label>
     <input
       type="password"
-      name="confirm-password"
-      id="confirm-password"
+      name="password"
+      id="password"
+      required
+      value="<%= locals.data ? data.password : '' %>"
+    />
+    <label for="confirm_password">Confirm Password:</label>
+    <input
+      type="password"
+      name="confirm_password"
+      id="confirm_password"
       required
     />
     <button>Sign-up</button>
   </form>
+  <% if (locals.errors) {%>
+  <ul>
+    <% locals.errors.forEach((error) => {%>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
 
   <p><a href="/users/log-in">Already an user? Log-in.</a></p>
 </div>
