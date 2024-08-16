@@ -79,7 +79,12 @@ exports.sign_up_post = [
       });
       return;
     } else {
-      res.send(data);
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+      await pool.query(
+        "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)",
+        [data.first_name, data.last_name, data.username, hashedPassword]
+      );
+      res.redirect("/users/log-in");
     }
   }),
 ];
