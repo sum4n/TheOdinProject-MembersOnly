@@ -76,7 +76,7 @@ module.exports.log_in_post = [
     }
 
     passport.authenticate("local", {
-      successRedirect: "/users/dashboard",
+      successRedirect: "/dashboard",
       failureRedirect: "/users/log-in",
     })(req, res, next);
   },
