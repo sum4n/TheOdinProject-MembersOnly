@@ -43,17 +43,50 @@ const validateSignUpForm = [
     .withMessage("Passwords do not match"),
 ];
 
-exports.log_in_get = asyncHandler(async (req, res) => {
-  res.render("pages/log-in");
-});
+const validateLogInForm = [
+  body("username")
+    .trim()
+    .isLength({ min: 4 })
+    .escape()
+    .withMessage("Username must not be empty."),
+  body("password")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Password must not be empty."),
+];
 
-exports.log_in_post = asyncHandler(async (req, res) => {
-  res.send("POST log-in: WIP");
-});
+exports.log_in_get = (req, res) => {
+  res.render("pages/log-in", {
+    title: "Log-In",
+  });
+};
 
-exports.sign_up_get = asyncHandler(async (req, res) => {
-  res.render("pages/sign-up");
-});
+exports.log_in_post = [
+  validateLogInForm,
+  (req, res, next) => {
+    // Extract validation errors from a request.
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("pages/log-in", {
+        title: "Log-In",
+        username: req.body.username,
+        errors: errors.array(),
+      });
+    }
+
+    passport.authenticate("local", {
+      successRedirect: "/users/dashboard",
+      failureRedirect: "/users/log-in",
+    })(req, res, next);
+  },
+];
+
+exports.sign_up_get = (req, res) => {
+  res.render("pages/sign-up", {
+    title: "Sign-Up",
+  });
+};
 
 exports.sign_up_post = [
   validateSignUpForm,
