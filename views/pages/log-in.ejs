@@ -10,11 +10,19 @@
       name="username"
       placeholder="username"
       required
+      value="<%= locals.username ? username : '' %>"
     />
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required />
     <button>Log-in</button>
   </form>
+  <% if (locals.errors) {%>
+  <ul>
+    <% errors.forEach((error) => {%>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
 </div>
 <div>
   <p><a href="/users/sign-up">New User? Sign up</a></p>
