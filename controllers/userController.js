@@ -56,13 +56,13 @@ const validateLogInForm = [
     .withMessage("Password must not be empty."),
 ];
 
-exports.log_in_get = (req, res) => {
+module.exports.log_in_get = (req, res) => {
   res.render("pages/log-in", {
     title: "Log-In",
   });
 };
 
-exports.log_in_post = [
+module.exports.log_in_post = [
   validateLogInForm,
   (req, res, next) => {
     // Extract validation errors from a request.
@@ -82,13 +82,13 @@ exports.log_in_post = [
   },
 ];
 
-exports.sign_up_get = (req, res) => {
+module.exports.sign_up_get = (req, res) => {
   res.render("pages/sign-up", {
     title: "Sign-Up",
   });
 };
 
-exports.sign_up_post = [
+module.exports.sign_up_post = [
   validateSignUpForm,
   asyncHandler(async (req, res) => {
     // Extract validation errors from a request.
@@ -122,14 +122,14 @@ exports.sign_up_post = [
   }),
 ];
 
-exports.dashboard_get = (req, res) => {
+module.exports.dashboard_get = (req, res) => {
   res.render("pages/dashboard", {
     title: "Dashboard",
     user: req.user,
   });
 };
 
-exports.log_out = (req, res, next) => {
+module.exports.log_out = (req, res, next) => {
   req.logout((err) => {
     if (err) {
       return next(err);
