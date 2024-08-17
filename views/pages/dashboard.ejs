@@ -1,0 +1,7 @@
+<%- include("../partials/head") %>
+<div>
+  <% if (user) {%>
+  <h1>Welcome <%= user.username %></h1>
+  <p><a href="/users/log-out">Log Out</a></p>
+  <% }
+</div>
