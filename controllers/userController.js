@@ -121,3 +121,19 @@ exports.sign_up_post = [
     }
   }),
 ];
+
+exports.dashboard_get = (req, res) => {
+  res.render("pages/dashboard", {
+    title: "Dashboard",
+    user: req.user,
+  });
+};
+
+exports.log_out = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};
