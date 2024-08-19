@@ -1,0 +1,17 @@
+<%- include("../partials/head") %> <%- include("../partials/header") %>
+
+<div>
+  <form method="POST">
+    <label for="msgTitle">Message Title:</label>
+    <input type="text" id="msgTitle" name="msgTitle" required />
+    <label for="msgContent">Message Content:</label>
+    <textarea
+      name="msgContent"
+      id="msgContent"
+      rows="6"
+      cols="50"
+      required
+    ></textarea>
+    <button>Submit</button>
+  </form>
+</div>
