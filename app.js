@@ -21,6 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static assests.
 app.use(express.static(path.join(__dirname, "public")));
 
+// Allow access logged-in user in all views.
+app.use((req, res, next) => {
+  console.log("Current user:", req.user);
+  res.locals.currentUser = req.user;
+  next();
+});
+
 // Import and use routes.
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
