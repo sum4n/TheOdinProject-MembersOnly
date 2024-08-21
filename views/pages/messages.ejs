@@ -1,0 +1,21 @@
+<%- include("../partials/head") %> <%- include("../partials/header") %>
+
+<div>
+  <h1>Messages:</h1>
+  <% if (locals.allMessages) {%>
+  <ul>
+    <hr />
+    <% allMessages.forEach((message) => {%>
+    <li><%= message.title %></li>
+    <li><%= message.content %></li>
+    <% if (currentUser && currentUser.membership) {%>
+    <li>
+      <div>Author: <%= message.first_name %> <%= message.last_name %></div>
+      <div>Posted on: <%= message.created_at %></div>
+    </li>
+    <% } %>
+    <hr />
+    <% }) %>
+  </ul>
+  <% } %>
+</div>
