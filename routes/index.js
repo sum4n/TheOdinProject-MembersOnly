@@ -11,5 +11,6 @@ router.get("/", (req, res) => {
 });
 
 router.get("/dashboard", isAuth, userController.dashboard_get);
+router.post("/dashboard", isAuth, userController.dashboard_post);
 
 module.exports = router;

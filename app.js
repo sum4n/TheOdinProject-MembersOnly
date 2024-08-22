@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Allow access logged-in user in all views.
 app.use((req, res, next) => {
-  console.log("Current user:", req.user);
+  // console.log("Current user:", req.user);
   res.locals.currentUser = req.user;
   next();
 });
