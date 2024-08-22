@@ -5,7 +5,9 @@ const { isAuth } = require("../middlewares/authMiddleware");
 const userController = require("../controllers/userController");
 
 router.get("/", (req, res) => {
-  res.redirect("/dashboard");
+  res.render("pages/homePage", {
+    title: "Members Only",
+  });
 });
 
 router.get("/dashboard", isAuth, userController.dashboard_get);
