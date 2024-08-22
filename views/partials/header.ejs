@@ -1,15 +1,21 @@
 <%- include("./head") %>
 <div>
-  <div>Members Only</div>
   <div>
-    <a href="/">Go to home</a>
-
-    <a href="/users/log-in">Log-In</a>
-
-    <a href="/users/sign-up">Sign-Up</a>
-
-    <a href="/dashboard">Dashboard</a>
-
+    <% if (currentUser) {%>
+    <a href="/dashboard">Members Only</a>
+    <% } else {%>
+    <a href="/">Members Only</a>
+    <% } %>
+  </div>
+  <div>
     <a href="/messages">Messages</a>
+    <% if (!currentUser) {%>
+    <a href="/users/log-in">Log-In</a>
+    <a href="/users/sign-up">Sign-Up</a>
+    <% } else {%>
+    <a href="/messages/create">Create Message</a>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/users/log-out">Log Out</a>
+    <% } %>
   </div>
 </div>
