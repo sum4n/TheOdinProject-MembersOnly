@@ -129,6 +129,25 @@ module.exports.dashboard_get = (req, res) => {
   });
 };
 
+module.exports.dashboard_post = async (req, res) => {
+  // Update membership.
+  await pool.query("UPDATE users SET membership = $1 WHERE user_id = $2", [
+    !req.user.membership, // Set the opposite value.
+    req.user.user_id,
+  ]);
+
+  // Get the updated user
+  const { rows } = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+    req.user.user_id,
+  ]);
+  const user = rows[0];
+
+  res.render("pages/dashboard", {
+    title: "Dashboard",
+    user,
+  });
+};
+
 module.exports.log_out = (req, res, next) => {
   req.logout((err) => {
     if (err) {
