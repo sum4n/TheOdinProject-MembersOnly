@@ -2,6 +2,13 @@
 <div>
   <% if (user) {%>
   <h1>Welcome <%= user.username %></h1>
+  <p>Membership status: <%= user.membership %></p>
+
+  <form method="POST">
+    <input type="checkbox" name="membership" id="membership"
+    onchange="this.form.submit()" <%= user.membership ? 'checked' : '' %> />
+    <label for="membership">Membership</label>
+  </form>
   <p><a href="/users/log-out">Log Out</a></p>
   <% } %>
 </div>
