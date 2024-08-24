@@ -25,6 +25,17 @@
     <li><%= message.title %></li>
     <li><%= message.content %></li>
     <li><%= message.created_at %></li>
+
+    <!-- Add delete button if user is admin -->
+    <% if (user.admin) {%>
+    <li>
+      <form action="/messages/<%= message.message_id %>/delete" method="POST">
+        <input type="hidden" name="message" value="<%= message.message_id %>" />
+        <button>Delete</button>
+      </form>
+    </li>
+    <% } %>
+
     <hr />
     <% }) %>
   </ul>
