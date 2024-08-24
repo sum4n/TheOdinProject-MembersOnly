@@ -33,3 +33,11 @@ module.exports.message_create_post = asyncHandler(async (req, res) => {
   );
   res.redirect("/messages");
 });
+
+module.exports.message_delete_post = asyncHandler(async (req, res) => {
+  await pool.query("DELETE FROM messages WHERE message_id = $1", [
+    req.params.message_id,
+  ]);
+
+  res.redirect("back");
+});
