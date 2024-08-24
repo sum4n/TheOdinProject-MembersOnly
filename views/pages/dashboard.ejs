@@ -1,6 +1,8 @@
 <%- include("../partials/head") %> <%- include("../partials/header") %>
 <div>
-  <h1>Welcome <%= user.username %></h1>
+  <h1>
+    Welcome <%= user.first_name %> <%= user.last_name %> (<%= user.username %>)
+  </h1>
   <p>Membership status: <%= user.membership %></p>
 
   <form method="POST" action="/dashboard/membership">
@@ -18,7 +20,7 @@
   </form>
 
   <% if (messages.length > 0) {%>
-  <h2>Messages:</h2>
+  <h2>Your messages:</h2>
   <ul>
     <hr />
     <% messages.forEach((message) => {%>
