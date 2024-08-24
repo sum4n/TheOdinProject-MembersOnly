@@ -6,7 +6,7 @@ const pool = require("../db/pool");
 module.exports.allMessages_get = asyncHandler(async (req, res) => {
   let allMessages;
 
-  if ((req.user && req.user.membership) || req.user.admin) {
+  if ((req.user && req.user.membership) || (req.user && req.user.admin)) {
     allMessages = await pool.query(
       "SELECT title, content, created_at, updated_at, first_name, last_name, messages.message_id, users.user_id FROM messages JOIN users ON messages.user_id = users.user_id"
     );
