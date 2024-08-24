@@ -135,10 +135,20 @@ module.exports.dashboard_get = async (req, res) => {
   });
 };
 
-module.exports.dashboard_post = async (req, res) => {
+module.exports.dashboard_membership_post = async (req, res) => {
   // Update membership.
   await pool.query("UPDATE users SET membership = $1 WHERE user_id = $2", [
     !req.user.membership, // Set the opposite value.
+    req.user.user_id,
+  ]);
+
+  res.redirect("/dashboard");
+};
+
+module.exports.dashboard_admin_post = async (req, res) => {
+  // Update membership.
+  await pool.query("UPDATE users SET admin = $1 WHERE user_id = $2", [
+    !req.user.admin, // Set the opposite value.
     req.user.user_id,
   ]);
 
