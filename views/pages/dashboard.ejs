@@ -1,6 +1,5 @@
 <%- include("../partials/head") %> <%- include("../partials/header") %>
 <div>
-  <% if (user) {%>
   <h1>Welcome <%= user.username %></h1>
   <p>Membership status: <%= user.membership %></p>
 
@@ -9,6 +8,22 @@
     onchange="this.form.submit()" <%= user.membership ? 'checked' : '' %> />
     <label for="membership">Membership</label>
   </form>
-  <p><a href="/users/log-out">Log Out</a></p>
+
+  <% if (messages.length > 0) {%>
+  <h2>Messages:</h2>
+  <ul>
+    <hr />
+    <% messages.forEach((message) => {%>
+    <li><%= message.title %></li>
+    <li><%= message.content %></li>
+    <li><%= message.created_at %></li>
+    <hr />
+    <% }) %>
+  </ul>
+  <% } else {%>
+  <p>
+    You have not created any messages.
+    <a href="/messages/create">Create message</a>
+  </p>
   <% } %>
 </div>
