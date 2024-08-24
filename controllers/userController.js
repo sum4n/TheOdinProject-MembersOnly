@@ -122,10 +122,16 @@ module.exports.sign_up_post = [
   }),
 ];
 
-module.exports.dashboard_get = (req, res) => {
+module.exports.dashboard_get = async (req, res) => {
+  const userMessages = await pool.query(
+    "SELECT * FROM messages WHERE user_id = $1",
+    [req.user.user_id]
+  );
+
   res.render("pages/dashboard", {
     title: "Dashboard",
     user: req.user,
+    messages: userMessages.rows,
   });
 };
 
@@ -136,16 +142,7 @@ module.exports.dashboard_post = async (req, res) => {
     req.user.user_id,
   ]);
 
-  // Get the updated user
-  const { rows } = await pool.query("SELECT * FROM users WHERE user_id = $1", [
-    req.user.user_id,
-  ]);
-  const user = rows[0];
-
-  res.render("pages/dashboard", {
-    title: "Dashboard",
-    user,
-  });
+  res.redirect("/dashboard");
 };
 
 module.exports.log_out = (req, res, next) => {
