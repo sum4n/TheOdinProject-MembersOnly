@@ -3,10 +3,18 @@
   <h1>Welcome <%= user.username %></h1>
   <p>Membership status: <%= user.membership %></p>
 
-  <form method="POST">
+  <form method="POST" action="/dashboard/membership">
     <input type="checkbox" name="membership" id="membership"
     onchange="this.form.submit()" <%= user.membership ? 'checked' : '' %> />
     <label for="membership">Membership</label>
+  </form>
+
+  <p>Admin status: <%= user.admin %></p>
+
+  <form method="POST" action="/dashboard/admin">
+    <input type="checkbox" name="admin" id="admin" onchange="this.form.submit()"
+    <%= user.admin ? 'checked' : '' %> />
+    <label for="admin">Admin</label>
   </form>
 
   <% if (messages.length > 0) {%>
