@@ -8,12 +8,23 @@
     <% allMessages.forEach((message) => {%>
     <li><%= message.title %></li>
     <li><%= message.content %></li>
-    <% if (currentUser && currentUser.membership) {%>
+    <% if (currentUser && currentUser.membership || currentUser.admin) {%>
     <li>
       <div>Author: <%= message.first_name %> <%= message.last_name %></div>
       <div>Posted on: <%= message.created_at %></div>
     </li>
     <% } %>
+
+    <!-- Add delete button if user is admin -->
+    <% if (currentUser.admin) {%>
+    <li>
+      <form action="/messages/<%= message.message_id %>/delete" method="POST">
+        <input type="hidden" name="message" value="<%= message.message_id %>" />
+        <button>Delete</button>
+      </form>
+    </li>
+    <% } %>
+
     <hr />
     <% }) %>
   </ul>
