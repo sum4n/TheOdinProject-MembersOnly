@@ -1,5 +1,5 @@
 <%- include("./head") %>
-<div>
+<div style="display: flex; justify-content: space-between">
   <div>
     <% if (currentUser) {%>
     <a href="/dashboard">Members Only</a>
@@ -7,7 +7,7 @@
     <a href="/">Members Only</a>
     <% } %>
   </div>
-  <div>
+  <div style="display: flex; justify-content: space-around; gap: 10px">
     <a href="/messages">Messages</a>
     <% if (!currentUser) {%>
     <a href="/users/log-in">Log-In</a>
