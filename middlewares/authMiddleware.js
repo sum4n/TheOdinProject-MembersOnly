@@ -13,3 +13,11 @@ module.exports.isAdmin = (req, res, next) => {
     res.status(302).redirect("/dashboard");
   }
 };
+
+module.exports.isNotAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/dashboard");
+  } else {
+    next();
+  }
+};
