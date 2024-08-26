@@ -46,7 +46,7 @@ const validateSignUpForm = [
 const validateLogInForm = [
   body("username")
     .trim()
-    .isLength({ min: 4 })
+    .isLength({ min: 1 })
     .escape()
     .withMessage("Username must not be empty."),
   body("password")
