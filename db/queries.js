@@ -25,14 +25,14 @@ async function createUser(first_name, last_name, username, password) {
 
 async function updateMembership(membership, user_id) {
   await pool.query("UPDATE users SET membership = $1 WHERE user_id = $2", [
-    !membership, // Set the opposite value
+    membership,
     user_id,
   ]);
 }
 
 async function updateAdmin(admin, user_id) {
   await pool.query("UPDATE users SET admin = $1 WHERE user_id = $2", [
-    !admin, // Set opposite value
+    admin,
     user_id,
   ]);
 }
