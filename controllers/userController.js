@@ -2,8 +2,15 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 const passport = require("passport");
-const pool = require("../db/pool");
 const bcrypt = require("bcryptjs");
+
+const {
+  findUserByUsername,
+  createUser,
+  updateMembership,
+  updateAdmin,
+  getMessageByUserId,
+} = require("../db/queries");
 
 const validateSignUpForm = [
   body("first_name")
@@ -24,11 +31,8 @@ const validateSignUpForm = [
     .isAlphanumeric()
     .withMessage("Username must contain only letters and numbers")
     .custom(async (username) => {
-      const res = await pool.query(
-        "SELECT user_id FROM users WHERE username = $1",
-        [username]
-      );
-      if (res.rows.length > 0) {
+      const res = await findUserByUsername(username);
+      if (res.length > 0) {
         return Promise.reject("Username already in use.");
       }
     }),
@@ -113,44 +117,37 @@ module.exports.sign_up_post = [
       return;
     } else {
       const hashedPassword = await bcrypt.hash(data.password, 10);
-      await pool.query(
-        "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)",
-        [data.first_name, data.last_name, data.username, hashedPassword]
+
+      await createUser(
+        data.first_name,
+        data.last_name,
+        data.username,
+        hashedPassword
       );
+
       res.redirect("/users/log-in");
     }
   }),
 ];
 
 module.exports.dashboard_get = async (req, res) => {
-  const userMessages = await pool.query(
-    "SELECT * FROM messages WHERE user_id = $1",
-    [req.user.user_id]
-  );
+  const userMessages = await getMessageByUserId(req.user.user_id);
 
   res.render("pages/dashboard", {
     title: "Dashboard",
     user: req.user,
-    messages: userMessages.rows,
+    messages: userMessages,
   });
 };
 
 module.exports.dashboard_membership_post = async (req, res) => {
-  // Update membership.
-  await pool.query("UPDATE users SET membership = $1 WHERE user_id = $2", [
-    !req.user.membership, // Set the opposite value.
-    req.user.user_id,
-  ]);
+  await updateMembership(!req.user.membership, req.user.user_id); // send opposite membership value
 
   res.redirect("/dashboard");
 };
 
 module.exports.dashboard_admin_post = async (req, res) => {
-  // Update membership.
-  await pool.query("UPDATE users SET admin = $1 WHERE user_id = $2", [
-    !req.user.admin, // Set the opposite value.
-    req.user.user_id,
-  ]);
+  await updateAdmin(!req.user.admin, req.user.user_id); // Send oppisite admin value
 
   res.redirect("/dashboard");
 };
